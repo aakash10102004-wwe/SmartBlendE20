@@ -1,0 +1,216 @@
+/* ========================================
+   3D Model Placeholder Section
+   ======================================== */
+
+.model-section {
+  position: relative;
+}
+
+.model-glow {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.05) 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.model-placeholder {
+  position: relative;
+  border-radius: var(--radius-xl);
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border-glass);
+  overflow: hidden;
+}
+
+.model-viewport {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 480px;
+  padding: 40px;
+  overflow: hidden;
+}
+
+/* Decorative Rings */
+.model-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 212, 255, 0.06);
+}
+
+.model-ring-1 {
+  width: 400px;
+  height: 400px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: spin-slow 40s linear infinite;
+}
+
+.model-ring-2 {
+  width: 300px;
+  height: 300px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-color: rgba(0, 255, 136, 0.05);
+  animation: spin-slow 28s linear infinite reverse;
+}
+
+.model-ring-3 {
+  width: 200px;
+  height: 200px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-color: rgba(0, 212, 255, 0.08);
+  animation: spin-slow 18s linear infinite;
+}
+
+/* Floating dots */
+.model-dot {
+  position: absolute;
+  border-radius: 50%;
+  animation: float 6s ease-in-out infinite;
+}
+
+.model-dot-1 {
+  width: 6px;
+  height: 6px;
+  background: var(--accent-cyan);
+  box-shadow: 0 0 10px var(--accent-cyan);
+  top: 25%;
+  left: 20%;
+  animation-delay: 0s;
+}
+
+.model-dot-2 {
+  width: 4px;
+  height: 4px;
+  background: var(--accent-green);
+  box-shadow: 0 0 8px var(--accent-green);
+  top: 30%;
+  right: 25%;
+  animation-delay: 1s;
+}
+
+.model-dot-3 {
+  width: 5px;
+  height: 5px;
+  background: var(--accent-cyan);
+  box-shadow: 0 0 10px var(--accent-cyan);
+  bottom: 35%;
+  left: 30%;
+  animation-delay: 2s;
+}
+
+.model-dot-4 {
+  width: 3px;
+  height: 3px;
+  background: var(--accent-amber);
+  box-shadow: 0 0 8px var(--accent-amber);
+  bottom: 25%;
+  right: 20%;
+  animation-delay: 3s;
+}
+
+.model-dot-5 {
+  width: 4px;
+  height: 4px;
+  background: var(--accent-green);
+  box-shadow: 0 0 8px var(--accent-green);
+  top: 50%;
+  left: 15%;
+  animation-delay: 1.5s;
+}
+
+/* Center Icon */
+.model-center {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(0, 212, 255, 0.06);
+  border: 1px solid rgba(0, 212, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-cyan);
+  margin-bottom: 24px;
+  z-index: 1;
+}
+
+.model-center-pulse {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 212, 255, 0.08);
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.model-label {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  z-index: 1;
+}
+
+.model-sublabel {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  z-index: 1;
+}
+
+/* Controls */
+.model-controls {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  padding: 16px 24px;
+  border-top: 1px solid var(--border-glass);
+  background: rgba(6, 6, 11, 0.4);
+}
+
+.model-control-hint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.model-control-hint svg {
+  color: var(--accent-cyan);
+  opacity: 0.6;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .model-viewport {
+    min-height: 360px;
+    padding: 32px;
+  }
+
+  .model-ring-1 { width: 300px; height: 300px; }
+  .model-ring-2 { width: 220px; height: 220px; }
+  .model-ring-3 { width: 140px; height: 140px; }
+}
+
+@media (max-width: 480px) {
+  .model-viewport {
+    min-height: 300px;
+  }
+
+  .model-controls {
+    gap: 20px;
+  }
+}

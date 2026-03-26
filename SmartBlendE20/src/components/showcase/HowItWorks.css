@@ -1,0 +1,112 @@
+/* ========================================
+   How It Works Section
+   ======================================== */
+
+.how-it-works {
+  position: relative;
+}
+
+.hiw-glow {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.05) 0%, transparent 70%);
+  top: 50%;
+  right: -250px;
+  transform: translateY(-50%);
+}
+
+.hiw-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.hiw-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+  position: relative;
+  padding-bottom: 40px;
+}
+
+.hiw-step:last-child {
+  padding-bottom: 0;
+}
+
+/* Step number column */
+.hiw-step-number {
+  flex-shrink: 0;
+  width: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+.hiw-step-number span {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  background: var(--accent-cyan-dim);
+  border: 1px solid rgba(0, 212, 255, 0.15);
+  border-radius: 100px;
+  padding: 6px 12px;
+}
+
+.hiw-step-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-cyan);
+  box-shadow: 0 0 12px var(--accent-cyan);
+}
+
+/* Connector */
+.hiw-connector {
+  position: absolute;
+  left: 23px;
+  top: 56px;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg, rgba(0, 212, 255, 0.3) 0%, rgba(0, 212, 255, 0.05) 100%);
+}
+
+/* Card */
+.hiw-step-card {
+  flex: 1;
+}
+
+.hiw-step-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.hiw-step-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .hiw-step {
+    gap: 16px;
+    padding-bottom: 28px;
+  }
+
+  .hiw-step-number {
+    width: 40px;
+  }
+
+  .hiw-connector {
+    left: 19px;
+    top: 52px;
+  }
+}

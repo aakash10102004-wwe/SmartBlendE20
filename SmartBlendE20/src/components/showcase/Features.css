@@ -1,0 +1,72 @@
+/* ========================================
+   Features Section
+   ======================================== */
+
+.features {
+  position: relative;
+}
+
+.features-glow {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.06) 0%, transparent 70%);
+  top: 0;
+  left: -200px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.feature-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.feature-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+}
+
+.feature-description {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  flex: 1;
+}
+
+.feature-line {
+  height: 2px;
+  border-radius: 1px;
+  margin-top: 24px;
+  width: 48px;
+  transition: width var(--transition-base);
+}
+
+.feature-line.cyan {
+  background: linear-gradient(90deg, var(--accent-cyan) 0%, transparent 100%);
+}
+
+.feature-line.green {
+  background: linear-gradient(90deg, var(--accent-green) 0%, transparent 100%);
+}
+
+.feature-line.amber {
+  background: linear-gradient(90deg, var(--accent-amber) 0%, transparent 100%);
+}
+
+.glass-card:hover .feature-line {
+  width: 80px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
