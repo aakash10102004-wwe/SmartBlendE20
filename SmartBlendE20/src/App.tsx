@@ -1,4 +1,5 @@
-import { lazy, Suspense, Component, type ReactNode } from 'react';
+import { useState, useCallback } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import Hero from './components/showcase/Hero';
@@ -6,80 +7,60 @@ import Features from './components/showcase/Features';
 import Benefits from './components/showcase/Benefits';
 import HowItWorks from './components/showcase/HowItWorks';
 import TechSpecs from './components/showcase/TechSpecs';
+import ModelViewer from './components/showcase/ModelViewer';
+import Dashboard from './components/dashboard/Dashboard';
 
-// Lazy-load the 3D viewer so Three.js import failures don't crash the rest of the app
-const ModelViewer = lazy(() => import('./components/showcase/ModelViewer'));
+/* ── View types ── */
+export type AppView = 'landing' | 'dashboard';
 
-/* ── Error boundary – catches WebGL / Three.js crashes ── */
-class ModelBoundary extends Component<
-  { children: ReactNode },
-  { hasError: boolean }
-> {
-  constructor(props: { children: ReactNode }) {
-    super(props);
-    this.state = { hasError: false };
-  }
-  static getDerivedStateFromError() {
-    return { hasError: true };
-  }
-  componentDidCatch(error: Error) {
-    console.warn('[ModelViewer] crashed:', error.message);
-  }
-  render() {
-    if (this.state.hasError) {
-      return (
-        <section
-          style={{
-            padding: '80px 24px',
-            textAlign: 'center',
-            color: '#9e9eb8',
-          }}
-        >
-          <p style={{ fontSize: '1.1rem', fontWeight: 600, color: '#f0f0f5' }}>
-            3D Viewer could not load
-          </p>
-          <p style={{ marginTop: 8 }}>
-            Please use a browser that supports WebGL (Chrome, Edge, Firefox).
-          </p>
-        </section>
-      );
-    }
-    return this.props.children;
-  }
-}
+/* ── Transition variants ── */
+const pageTransition = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as const } },
+  exit: { opacity: 0, y: -20, transition: { duration: 0.3, ease: 'easeIn' as const } },
+};
 
-function App() {
+/* ── Landing Page ── */
+function LandingPage({
+  onNavigate,
+}: {
+  onNavigate: (view: AppView) => void;
+}) {
   return (
-    <>
-      <Header />
+    <motion.div key="landing" {...pageTransition}>
+      <Header onNavigate={onNavigate} />
       <main>
-        <Hero />
+        <Hero onNavigate={onNavigate} />
         <Features />
         <Benefits />
         <HowItWorks />
         <TechSpecs />
-        <ModelBoundary>
-          <Suspense
-            fallback={
-              <section
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  minHeight: 400,
-                  color: '#9e9eb8',
-                }}
-              >
-                Loading 3D Viewer…
-              </section>
-            }
-          >
-            <ModelViewer />
-          </Suspense>
-        </ModelBoundary>
+        <ModelViewer />
       </main>
       <Footer />
-    </>
+    </motion.div>
+  );
+}
+
+/* ── App Controller ── */
+function App() {
+  const [view, setView] = useState<AppView>('landing');
+
+  const navigate = useCallback((v: AppView) => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => setView(v), v === 'landing' ? 300 : 0);
+  }, []);
+
+  return (
+    <AnimatePresence mode="wait">
+      {view === 'landing' ? (
+        <LandingPage key="landing" onNavigate={navigate} />
+      ) : (
+        <motion.div key="dashboard" {...pageTransition}>
+          <Dashboard onBackToHome={() => navigate('landing')} />
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 

@@ -1,8 +1,15 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Gauge } from 'lucide-react';
+import { ArrowRight, LayoutDashboard } from 'lucide-react';
+import type { AppView } from '../../App';
 import './Hero.css';
 
-const Hero = () => {
+const Hero = ({ onNavigate }: { onNavigate: (view: AppView) => void }) => {
+  const scrollTo3D = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const el = document.getElementById('3d-model');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   return (
     <section className="hero" id="hero">
       {/* Background Effects */}
@@ -67,14 +74,17 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.8 }}
           >
-            <a href="#features" className="btn btn-primary">
+            <a href="#3d-model" className="btn btn-primary" onClick={scrollTo3D}>
               Explore System
               <ArrowRight size={18} />
             </a>
-            <a href="#tech-specs" className="btn btn-secondary">
-              <Gauge size={18} />
-              View Specs
-            </a>
+            <button
+              className="btn btn-secondary"
+              onClick={() => onNavigate('dashboard')}
+            >
+              <LayoutDashboard size={18} />
+              View Dashboard
+            </button>
           </motion.div>
 
           <motion.div

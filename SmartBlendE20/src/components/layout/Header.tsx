@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, LayoutDashboard } from 'lucide-react';
+import type { AppView } from '../../App';
 import './Header.css';
 
 const navLinks = [
@@ -11,7 +12,7 @@ const navLinks = [
   { label: '3D Model', href: '#3d-model' },
 ];
 
-const Header = () => {
+const Header = ({ onNavigate }: { onNavigate: (view: AppView) => void }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -21,25 +22,41 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleAnchorClick = (href: string) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    setMobileOpen(false);
+    const el = document.querySelector(href);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   return (
     <header className={`header ${scrolled ? 'header-scrolled' : ''}`}>
       <div className="container header-inner">
-        <a href="#hero" className="header-logo">
+        <a href="#hero" className="header-logo" onClick={handleAnchorClick('#hero')}>
           <span className="logo-icon">E20</span>
           <span className="logo-text">SmartBlend</span>
         </a>
 
         <nav className="header-nav">
           {navLinks.map((link) => (
-            <a key={link.href} href={link.href} className="nav-link">
+            <a
+              key={link.href}
+              href={link.href}
+              className="nav-link"
+              onClick={handleAnchorClick(link.href)}
+            >
               {link.label}
             </a>
           ))}
         </nav>
 
-        <a href="#features" className="btn btn-primary header-cta">
-          Get Started
-        </a>
+        <button
+          className="btn btn-primary header-cta"
+          onClick={() => onNavigate('dashboard')}
+        >
+          <LayoutDashboard size={16} />
+          Dashboard
+        </button>
 
         <button
           className="mobile-toggle"
@@ -65,18 +82,21 @@ const Header = () => {
                 key={link.href}
                 href={link.href}
                 className="mobile-link"
-                onClick={() => setMobileOpen(false)}
+                onClick={handleAnchorClick(link.href)}
               >
                 {link.label}
               </a>
             ))}
-            <a
-              href="#features"
+            <button
               className="btn btn-primary mobile-cta"
-              onClick={() => setMobileOpen(false)}
+              onClick={() => {
+                setMobileOpen(false);
+                onNavigate('dashboard');
+              }}
             >
-              Get Started
-            </a>
+              <LayoutDashboard size={16} />
+              View Dashboard
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
