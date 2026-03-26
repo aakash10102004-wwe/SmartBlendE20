@@ -9,7 +9,6 @@ const navLinks = [
   { label: 'Benefits', href: '#benefits' },
   { label: 'How It Works', href: '#how-it-works' },
   { label: 'Specs', href: '#tech-specs' },
-  { label: '3D Model', href: '#3d-model' },
 ];
 
 const Header = ({ onNavigate }: { onNavigate: (view: AppView) => void }) => {
